@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Shooter"
+config/name="Shooter Main"
 run/main_scene="uid://c5n6m73eaw0kq"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"

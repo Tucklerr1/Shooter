@@ -1,6 +1,73 @@
 [gd_scene format=3 uid="uid://bgomb0cdap0s7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rexhb"]
+[ext_resource type="Script" uid="uid://cnsi5a7xv1tlm" path="res://player.gd" id="1_evvns"]
+[ext_resource type="Texture2D" uid="uid://ci2yms6x118wd" path="res://assetpack/Bonus (player ship)/sprite_player_spaceship_up_down.png" id="1_kxg5b"]
+[ext_resource type="Script" uid="uid://dcvqm4osgwvh2" path="res://parallax_background.gd" id="3_45nkh"]
+[ext_resource type="Texture2D" uid="uid://bl5unbujheorq" path="res://assetpack/parallax/skies/Sky_sky.png" id="3_qn35j"]
+[ext_resource type="Texture2D" uid="uid://dyxfyioigwo2t" path="res://assetpack/parallax/skies/Sky_back_mountain.png" id="4_8c340"]
+[ext_resource type="Texture2D" uid="uid://cliod7tu2f64e" path="res://assetpack/parallax/skies/sky_front_mountain.png" id="5_45nkh"]
+[ext_resource type="Texture2D" uid="uid://bat2en3xepbf3" path="res://assetpack/parallax/skies/sky_cloud_floor_2.png" id="6_8c340"]
+[ext_resource type="Script" uid="uid://c6c8f6n07it8n" path="res://gerador_inimigos.gd" id="8_ysdx3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evvns"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(0, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq54j"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(350, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ap6j"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(700, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn35j"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(1050, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8c340"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(1400, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45nkh"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(1750, 0, 350, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysdx3"]
+atlas = ExtResource("1_kxg5b")
+region = Rect2(2100, 0, 350, 150)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4n7d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evvns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yq54j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ap6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn35j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8c340")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45nkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysdx3")
+}],
+"loop": 2,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8c340"]
+size = Vector2(102, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dkfuy"]
 size = Vector2(20, 648)
@@ -18,12 +85,17 @@ size = Vector2(1152.5, 19.5)
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=378331308]
 position = Vector2(113, 333)
+script = ExtResource("1_evvns")
 
 [node name="ImagemPlayer" type="AnimatedSprite2D" parent="Player" unique_id=2020266362]
-position = Vector2(1, 2)
-sprite_frames = SubResource("SpriteFrames_rexhb")
+position = Vector2(-3.0000057, -0.99999976)
+scale = Vector2(0.38142854, 0.4466667)
+sprite_frames = SubResource("SpriteFrames_p4n7d")
+autoplay = "default"
 
 [node name="CorpoPlayer" type="CollisionShape2D" parent="Player" unique_id=1167775383]
+position = Vector2(-5, 0)
+shape = SubResource("RectangleShape2D_8c340")
 
 [node name="Paredes" type="StaticBody2D" parent="." unique_id=1310406018]
 position = Vector2(-3, 0)
@@ -44,3 +116,51 @@ disabled = true
 [node name="Chao" type="CollisionShape2D" parent="Paredes" unique_id=1786538487]
 position = Vector2(575.75, 657.25)
 shape = SubResource("RectangleShape2D_p4n7d")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=218613840]
+script = ExtResource("3_45nkh")
+
+[node name="FundoCeu" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1237026303]
+motion_scale = Vector2(0.05, 0.05)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FundoCeu" unique_id=63116598]
+position = Vector2(576, 324.00003)
+scale = Vector2(0.6063158, 0.6480001)
+texture = ExtResource("3_qn35j")
+
+[node name="FundoMontanha" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1370832534]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FundoMontanha" unique_id=750134487]
+position = Vector2(576.00006, 324)
+scale = Vector2(0.60631585, 0.648)
+texture = ExtResource("4_8c340")
+
+[node name="FrenteMontanha" type="ParallaxLayer" parent="ParallaxBackground" unique_id=638981856]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FrenteMontanha" unique_id=1522307497]
+position = Vector2(576, 324)
+scale = Vector2(0.6063158, 0.648)
+texture = ExtResource("5_45nkh")
+
+[node name="FrenteNuvens" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1629921675]
+motion_scale = Vector2(3, 3)
+motion_mirroring = Vector2(1152, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FrenteNuvens" unique_id=2078027338]
+position = Vector2(576.49994, 323.99997)
+scale = Vector2(0.6068421, 0.648)
+texture = ExtResource("6_8c340")
+
+[node name="GeradorInimigos" type="Node" parent="." unique_id=14547833]
+script = ExtResource("8_ysdx3")
+
+[node name="Timer" type="Timer" parent="GeradorInimigos" unique_id=1626162402]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="GeradorInimigos/Timer" to="GeradorInimigos" method="_on_timer_timeout"]
