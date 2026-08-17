@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bc6fagyg4pecw"]
+
+[ext_resource type="Script" uid="uid://c53tfaq0o0lwq" path="res://tiro.gd" id="1_gp2hl"]
+[ext_resource type="Texture2D" uid="uid://bn0uwygqbkl8k" path="res://assetpack/parallax/desert/shooting laser-sheet.png" id="2_wib4g"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dkfuy"]
+radius = 5.2434473
+height = 76.11942
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4dry"]
+atlas = ExtResource("2_wib4g")
+region = Rect2(0, 0, 211, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_biowf"]
+atlas = ExtResource("2_wib4g")
+region = Rect2(211, 0, 211, 92)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dua35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4dry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_biowf")
+}],
+"loop": 2,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Tiro" type="Area2D" unique_id=1251028063]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_gp2hl")
+
+[node name="CorpoTiro" type="CollisionShape2D" parent="." unique_id=919753848]
+position = Vector2(-9.000001, -8.000001)
+rotation = 1.5707964
+scale = Vector2(0.38142854, 0.4466667)
+shape = SubResource("CapsuleShape2D_dkfuy")
+
+[node name="ImagemTiro" type="AnimatedSprite2D" parent="." unique_id=1487320973]
+position = Vector2(-9, -8)
+scale = Vector2(0.21147086, 0.18231887)
+sprite_frames = SubResource("SpriteFrames_dua35")
+autoplay = "default"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

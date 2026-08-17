@@ -102,6 +102,7 @@ animations = [{
 size = Vector2(128, 46)
 
 [node name="Inimigo" type="Area2D" unique_id=1372959574 groups=["inimigo"]]
+collision_layer = 2
 script = ExtResource("1_g45jm")
 
 [node name="ImagemInimigo" type="AnimatedSprite2D" parent="." unique_id=1748869800]

@@ -8,12 +8,12 @@ func _process(delta):
 	if position.x<-100:
 		queue_free()
 
-var tempo_minimo = 0.5
-var fator_dificuldade = 0.95
+var tempo_minimo=0.5
+var fator_dificuldade=0.95
 func _on_timer_timeout():
-	$Timer.wait_time = $Timer.wait_time * fator_dificuldade
-	if $Timer.wait_time < tempo_minimo:
-		$Timer.wait_time = tempo_minimo
+	$Timer.wait_time=$Timer.wait_time*fator_dificuldade
+	if $Timer.wait_time<tempo_minimo:
+		$Timer.wait_time=tempo_minimo
 
 func explodir():
 	$CorpoInimigo.disabled=true
@@ -24,4 +24,6 @@ func explodir():
 func _on_body_entered(body: Node2D) -> void:
 	if body.name=="Player":
 		body.vidas-=1
+		var jogo=get_tree().current_scene
+		jogo.atualizar_hud()
 		explodir()

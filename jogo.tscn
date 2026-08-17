@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://cnsi5a7xv1tlm" path="res://player.gd" id="1_evvns"]
 [ext_resource type="Texture2D" uid="uid://ci2yms6x118wd" path="res://assetpack/Bonus (player ship)/sprite_player_spaceship_up_down.png" id="1_kxg5b"]
+[ext_resource type="Script" uid="uid://cbiiu836ci0ui" path="res://jogo.gd" id="1_mtw28"]
 [ext_resource type="Script" uid="uid://dcvqm4osgwvh2" path="res://parallax_background.gd" id="3_45nkh"]
 [ext_resource type="Texture2D" uid="uid://bl5unbujheorq" path="res://assetpack/parallax/skies/Sky_sky.png" id="3_qn35j"]
 [ext_resource type="Texture2D" uid="uid://dyxfyioigwo2t" path="res://assetpack/parallax/skies/Sky_back_mountain.png" id="4_8c340"]
 [ext_resource type="Texture2D" uid="uid://cliod7tu2f64e" path="res://assetpack/parallax/skies/sky_front_mountain.png" id="5_45nkh"]
 [ext_resource type="Texture2D" uid="uid://bat2en3xepbf3" path="res://assetpack/parallax/skies/sky_cloud_floor_2.png" id="6_8c340"]
 [ext_resource type="Script" uid="uid://c6c8f6n07it8n" path="res://gerador_inimigos.gd" id="8_ysdx3"]
+[ext_resource type="FontFile" uid="uid://0eu8ct8bve0h" path="res://assetpack/Diary Story.otf" id="9_t8pok"]
+[ext_resource type="FontFile" uid="uid://hwgo4blejg6x" path="res://assetpack/parallax/Diary Story.otf" id="11_orj5g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_evvns"]
 atlas = ExtResource("1_kxg5b")
@@ -81,10 +84,18 @@ size = Vector2(1152, 11)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p4n7d"]
 size = Vector2(1152.5, 19.5)
 
-[node name="Jogo" type="Node2D" unique_id=374966575]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkfuy"]
+bg_color = Color(0.22745098, 0.4509804, 0.83137256, 1)
+
+[node name="Jogo" type="Node2D" unique_id=374966575 node_paths=PackedStringArray("vidas_node", "pontos_node", "Player")]
+script = ExtResource("1_mtw28")
+vidas_node = NodePath("HUD/PanelContainer/HBoxContainer/Vidas")
+pontos_node = NodePath("HUD/PanelContainer/HBoxContainer/Pontos")
+Player = NodePath("Player")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=378331308]
 position = Vector2(113, 333)
+collision_mask = 0
 script = ExtResource("1_evvns")
 
 [node name="ImagemPlayer" type="AnimatedSprite2D" parent="Player" unique_id=2020266362]
@@ -162,5 +173,45 @@ script = ExtResource("8_ysdx3")
 [node name="Timer" type="Timer" parent="GeradorInimigos" unique_id=1626162402]
 wait_time = 2.0
 autostart = true
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=721594291]
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD" unique_id=896882836]
+offset_right = 311.0
+offset_bottom = 44.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dkfuy")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/PanelContainer" unique_id=549799481]
+layout_mode = 2
+
+[node name="Vidas" type="Label" parent="HUD/PanelContainer/HBoxContainer" unique_id=1755502190]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_t8pok")
+theme_override_font_sizes/font_size = 40
+text = " Vidas: 5"
+
+[node name="Pontos" type="Label" parent="HUD/PanelContainer/HBoxContainer" unique_id=587389833]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_t8pok")
+theme_override_font_sizes/font_size = 40
+text = "     Pontos: 0"
+horizontal_alignment = 1
+
+[node name="MensagemMorte" type="Label" parent="." unique_id=1092578410]
+visible = false
+offset_left = 8.0
+offset_top = 496.0
+offset_right = 1140.0
+offset_bottom = 649.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("11_orj5g")
+theme_override_font_sizes/font_size = 67
+text = "FIM DE JOGO.
+Pressione Espaço para voltar"
+horizontal_alignment = 1
 
 [connection signal="timeout" from="GeradorInimigos/Timer" to="GeradorInimigos" method="_on_timer_timeout"]
